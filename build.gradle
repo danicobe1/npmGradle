@@ -12,6 +12,12 @@ node {
     npmWorkDir = file("${project.projectDir}/.gradle/npm")
 }
 
+task test {
+  doLast {
+    println "somebodysomebodysomebodysomebodysomebodysomebodysomebodysomebody"
+  }
+}
+
 task registrySetup {
   doLast {
     File npmrc = file(System.properties['user.home'] + '/.npmrc')

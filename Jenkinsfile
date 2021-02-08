@@ -20,7 +20,8 @@ pipeline {
                 checkout scm
                 withGradle {
                     sh '''
-            ./gradlew registrySetup \
+            ./gradlew test \
+                      registrySetup \
                       nodeSetup \
                       npmInstall \
                       npm_run_build \
