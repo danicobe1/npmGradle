@@ -42,6 +42,19 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps {
+                withGradle {
+                    sh 'chmod +x gradlew'
+                    sh 'echo hola'
+                    sh 'pwd'
+                    sh '''
+                        ./gradlew -is npm_run_test
+                    '''
+                }
+            }
+        }
+
         stage('Publish') {
             steps {
                 withGradle {
