@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "http://192.168.0.104:8081/repository/test-npm-nexus/"
+  },
   "scripts": {
     "test": "jest",
     "build": "webpack",
