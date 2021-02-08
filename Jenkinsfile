@@ -27,6 +27,7 @@ pipeline {
         stage('Build') {
             steps {
                 withGradle {
+                    sh 'chmod +x gradlew'
                     sh 'echo hola'
                     sh 'pwd'
                     sh '''
