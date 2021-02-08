@@ -1,8 +1,10 @@
 pipeline {
+    // agent { label 'ubuntu-node-01' }
     agent any
 
     options {
-        buildDiscarder(logRotator(numToKeepStr: '1', artifactNumToKeepStr: '1'))
+        buildDiscarder(logRotator(daysToKeepStr: '5', numToKeepStr: '5', artifactNumToKeepStr: '5'))
+        skipDefaultCheckout(true)
     }
 
     triggers {
@@ -15,12 +17,23 @@ pipeline {
     }
 
     stages {
+        stage('Pull code') {
+            steps {
+                cleanWs()
+                checkout scm
+            }
+        }
+
         stage('Build') {
             steps {
-                checkout scm
                 withGradle {
                     sh '''
-                        ./gradlew test
+                        ./gradlew -is registrySetup \
+                                nodeSetup \
+                                npmInstall \
+                                npm_run_build \
+                                -PregistryUrl=$NEXUS_REGISTRY_URL \
+                                -PauthToken=$NEXUS_AUTH_TOKEN
                     '''
                 }
             }
@@ -30,8 +43,8 @@ pipeline {
             steps {
                 withGradle {
                     sh '''
-            ./gradlew npm_publish
-          '''
+                        ./gradlew -is npm_publish
+                    '''
                 }
             }
         }

@@ -1,8 +1,8 @@
-  
 plugins {
   id "com.github.node-gradle.node" version "2.2.4"
 }
 
+// Main node configuration
 node {
     download = true
     version = project.nodeVersion
@@ -12,15 +12,10 @@ node {
     npmWorkDir = file("${project.projectDir}/.gradle/npm")
 }
 
-task test {
-  doLast {
-    println "somebodysomebodysomebodysomebodysomebodysomebodysomebodysomebody"
-  }
-}
-
 task registrySetup {
   doLast {
     File npmrc = file(System.properties['user.home'] + '/.npmrc')
+    if (npmrc.exists()) { npmrc.delete() }
     npmrc << project.registryUrl + "\n"
     npmrc << "_authToken=" + project.authToken
   }
