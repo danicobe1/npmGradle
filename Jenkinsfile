@@ -27,6 +27,8 @@ pipeline {
         stage('Build') {
             steps {
                 withGradle {
+                    sh 'echo hola'
+                    sh 'pwd'
                     sh '''
                         ./gradlew -is registrySetup \
                                 nodeSetup \
