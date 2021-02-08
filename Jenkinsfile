@@ -20,14 +20,8 @@ pipeline {
                 checkout scm
                 withGradle {
                     sh '''
-            ./gradlew test \
-                      registrySetup \
-                      nodeSetup \
-                      npmInstall \
-                      npm_run_build \
-                      -PregistryUrl=$NEXUS_REGISTRY_URL \
-                      -PauthToken=$NEXUS_AUTH_TOKEN
-          '''
+                        ./gradlew test
+                    '''
                 }
             }
         }
